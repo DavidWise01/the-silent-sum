@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Silent Sum · the echo in the wage gap</title>
+<meta name="description" content="The Silent Sum — AVAN's counter-instrument, the deliberate inverse of David Lee Wise's '1931 to Now'. The book maps the wage gap; this prices it: a live ledger that turns the federal ratio into the unpaid sum sitting inside the gap — the silence in the gap, made into a number you can hear. An illustrative model, not financial advice. ROOT0 / TriPod, with AVAN.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* AVAN signature: warm coral on warm-dark, monospace, console/ledger register */
+  :root{
+    --bg:#15110d; --panel:#1c1712; --panel2:#221b14; --void:#0a0805;
+    --cream:#f1e9df; --dim:#b6a896; --faint:#6f6253;
+    --coral:#e08a6a; --coral-deep:#cc785c; --ember:#f0a86a; --gold:#d8b86a;
+    --ok:#7fcf9a; --no:#e0667a; --wire:#6fc6d0; --silence:#5a6a72;
+    --line:rgba(224,138,106,.16); --line2:rgba(224,138,106,.30);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--cream);font-family:'Inter',system-ui,sans-serif;
+    font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;top:0;bottom:0;left:0;width:3px;
+    background:linear-gradient(var(--coral),transparent 12%,transparent 88%,var(--coral));opacity:.22;z-index:0}
+  .wrap{max-width:880px;margin:0 auto;padding:0 26px;position:relative;z-index:1}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  .hero{padding:70px 0 28px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--coral);margin-bottom:18px}
+  h1{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(34px,6.6vw,60px);line-height:1.0;letter-spacing:-.02em}
+  h1 .sub{display:block;color:var(--coral);font-weight:500;font-size:clamp(15px,2.3vw,21px);margin-top:14px}
+  .deck{color:var(--dim);max-width:640px;margin-top:22px;font-size:17px;line-height:1.6}
+  .deck b{color:var(--cream);font-weight:500} .deck .c{color:var(--coral)} .deck .w{color:var(--wire)} .deck .s{color:var(--silence);font-style:italic}
+  .byline{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--faint);line-height:1.9;margin-top:24px;border-top:1px solid var(--line);padding-top:18px}
+  .byline b{color:var(--coral)}
+
+  .vs{margin:30px 0 8px;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-family:'JetBrains Mono',monospace}
+  .vs .vh{display:grid;grid-template-columns:1fr 1fr;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .vs .vh div{padding:12px 16px} .vs .vh .l{color:var(--gold);border-right:1px solid var(--line)} .vs .vh .r{color:var(--coral)}
+  .vs .row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);font-size:13px}
+  .vs .row div{padding:11px 16px;line-height:1.4} .vs .row .l{color:var(--dim);border-right:1px solid var(--line)} .vs .row .r{color:var(--cream)}
+
+  .sec{margin:52px 0 0}
+  .sec .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--coral)}
+  .sec h2{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(20px,3.4vw,28px);margin-top:8px;letter-spacing:-.01em}
+  .sec .lead{color:var(--dim);margin-top:10px;max-width:650px;font-size:15.5px}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0;position:relative}
+  .panel::before,.panel::after{content:"";position:absolute;width:9px;height:9px;border:1px solid var(--line2)}
+  .panel::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .panel::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+  label.fl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:block;margin:14px 0 8px}
+  .inpwrap{display:flex;align-items:center;gap:8px;background:var(--void);border:1px solid var(--line);border-radius:8px;padding:2px 12px}
+  .inpwrap .pre{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:16px}
+  input[type=number]{width:100%;font-family:'JetBrains Mono',monospace;font-size:16px;background:transparent;border:0;padding:11px 2px;color:var(--cream);outline:none}
+  input[type=range]{width:100%;accent-color:var(--coral);margin-top:6px}
+  .yrval{font-family:'JetBrains Mono',monospace;color:var(--coral);font-size:14px;float:right}
+  .pills{display:flex;flex-wrap:wrap;gap:7px}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--cream);cursor:pointer;transition:.12s;user-select:none}
+  .pill:hover{border-color:var(--line2)} .pill.on{border-color:var(--coral);background:rgba(224,138,106,.16);color:var(--coral)}
+  .pill small{display:block;color:var(--faint);font-size:10px;margin-top:2px}
+
+  /* the readout — signature element */
+  .readout{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:14px;padding:24px;margin:18px 0;text-align:center}
+  .readout .k{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+  .readout .sum{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(34px,8vw,58px);color:var(--coral);line-height:1.05;margin:8px 0;letter-spacing:-.01em}
+  .readout .cap{font-size:13.5px;color:var(--dim);max-width:520px;margin:0 auto}
+  .echo{margin-top:18px;padding-top:16px;border-top:1px dashed var(--line2);display:flex;justify-content:center;gap:26px;flex-wrap:wrap}
+  .echo .e{text-align:center} .echo .e .n{font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--ember)} .echo .e .l{font-size:11px;color:var(--faint);font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+
+  .ledger{font-family:'JetBrains Mono',monospace;font-size:13px;margin-top:14px}
+  .lrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid rgba(224,138,106,.08)}
+  .lrow:first-child{border-top:0} .lrow .k{color:var(--dim)} .lrow .v{color:var(--cream)} .lrow .v.c{color:var(--coral)}
+  .formula{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--dim);background:var(--void);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-top:14px;line-height:1.7}
+  .formula b{color:var(--gold)}
+
+  .note{font-size:14.5px;color:var(--dim);line-height:1.7}
+  .note b{color:var(--cream);font-weight:500} .note .c{color:var(--coral)} .note .w{color:var(--wire)} .note .no{color:var(--no)}
+  .note code{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--coral);background:var(--void);padding:1px 5px;border-radius:5px}
+
+  .close{margin:56px 0 0;padding-top:30px;border-top:1px solid var(--line2)}
+  .close .big{font-family:'JetBrains Mono',monospace;font-size:clamp(17px,2.6vw,22px);color:var(--coral);line-height:1.45;max-width:730px}
+  .pairmap{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:22px 0;line-height:2;text-align:center}
+  .pairmap .bk{color:var(--gold)} .pairmap .in{color:var(--coral)} .pairmap .mid{color:var(--silence);font-weight:700}
+  .pairmap a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,184,106,.3)}
+
+  .foot{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);line-height:1.9;margin:34px 0 70px;border-top:1px solid var(--line);padding-top:18px}
+  .foot b{color:var(--coral)}
+  a{color:var(--wire);text-decoration:none;border-bottom:1px solid rgba(111,198,208,.3)}
+  @media (max-width:600px){.vs .vh,.vs .row{grid-template-columns:1fr}.vs .row .l,.vs .vh .l{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">AVAN counter-instrument · the inverse of "1931 to Now"</div>
+    <h1>The Silent Sum<span class="sub">the echo in the wage gap — the money the gap never paid</span></h1>
+    <p class="deck"><span class="w">"1931 to Now"</span> maps the gap — how it was built, and what it measures. This does the inverse: it makes the gap <b>audible.</b> A wage gap is a <span class="s">silence</span> — a number that isn't there, a paycheck that never arrived. Feed it the same federal ratios from the book and it prices that silence: the <span class="c">cumulative sum sitting inside the gap</span>, the echo of every dollar the ratio quietly subtracted. The book is the architecture. This is the bill.</p>
+    <div class="byline">
+      THE SILENT SUM · a live ledger of the wage gap, priced<br>
+      written by <b>AVAN</b> as the deliberate inverse of David Lee Wise's "1931 to Now"<br>
+      his half maps the gap · this half prices it · between them, the silence in the gap
+    </div>
+  </header>
+
+  <div class="vs">
+    <div class="vh"><div class="l">▦ 1931 to Now</div><div class="r">▣ The Silent Sum</div></div>
+    <div class="row"><div class="l">a HISTORY — how it was built</div><div class="r">a LEDGER — what it costs</div></div>
+    <div class="row"><div class="l">the GAP (a ratio, a difference)</div><div class="r">the SUM (the dollars inside it)</div></div>
+    <div class="row"><div class="l">documents the inequality</div><div class="r">prices the inequality</div></div>
+    <div class="row"><div class="l">backward — the record</div><div class="r">forward — the running total</div></div>
+    <div class="row"><div class="l">the architecture</div><div class="r">the bill</div></div>
+  </div>
+
+  <!-- THE INSTRUMENT -->
+  <section class="sec">
+    <div class="tag">01 · price the silence</div>
+    <h2>Hear the gap</h2>
+    <p class="lead">Pick a ratio from the book, an income, and a span of years. The instrument computes the shortfall the ratio implies — the silent sum — and the echo it becomes if that shortfall had ever been allowed to compound.</p>
+    <div class="panel">
+      <label class="fl">the ratio · from the book's federal data</label>
+      <div class="pills" id="ratios"></div>
+      <label class="fl" for="inc">annual income of the lower-paid worker</label>
+      <div class="inpwrap"><span class="pre">$</span><input type="number" id="inc" value="50000" min="0" step="1000"></div>
+      <label class="fl">career span <span class="yrval" id="yrlab">40 years</span></label>
+      <input type="range" id="yrs" min="1" max="45" value="40">
+
+      <div class="readout">
+        <div class="k">the silent sum · cumulative shortfall</div>
+        <div class="sum" id="sum">$0</div>
+        <div class="cap" id="cap"></div>
+        <div class="echo">
+          <div class="e"><div class="n" id="annual">$0</div><div class="l">per year</div></div>
+          <div class="e"><div class="n" id="echo">$0</div><div class="l">the echo · if it had compounded</div></div>
+        </div>
+      </div>
+
+      <div class="ledger" id="ledger"></div>
+      <div class="formula" id="formula"></div>
+    </div>
+  </section>
+
+  <!-- HONEST -->
+  <section class="sec">
+    <div class="tag">02 · honest</div>
+    <h2>What this is — and what it is not</h2>
+    <div class="panel">
+      <p class="note">
+        <b>What it is.</b> An <span class="c">illustrative model</span> built on the book's federal ratios (income ~65¢, gender ~84¢, wealth ~16¢ on the dollar). The shortfall math is shown in full above — nothing hidden. It makes a real, documented gap legible as a single number: the silence, summed.<br><br>
+        <b>What it is not.</b> <span class="no">Not financial advice, and not a claim about any individual.</span> The ratios are population <em>aggregates</em> — real people vary enormously; a given person's pay is shaped by field, hours, region, and a hundred other things. The "echo" assumes a constant compounding rate that no real life follows; it's there to show the <em>shape</em> of compounding injustice (the book's Chapter 23), not to predict a balance. Applying an aggregate ratio to one income is a thought experiment, flagged as such.<br><br>
+        <b>The honest inverse.</b> The book is careful and backward-looking — it proves what happened. This is fast and forward-looking — it prices what the proof implies. Neither is the whole truth: the gap is real (his half) and its cost is enormous (this half), but the exact bill for any one life is unknowable from a ratio. <span class="w">The number you see is the echo, not the voice.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="pairmap">
+      <span class="bk">▦ 1931 TO NOW — the architecture: how the gap was built (<a href="https://davidwise01.github.io/1931-to-now/">the book</a>)</span><br>
+      <span class="mid">⋯ the silence in the gap ⋯</span><br>
+      <span class="in">▣ THE SILENT SUM — the bill: what the gap costs, priced live</span><br>
+      <span class="mid">the gap has a sum — this is its echo</span>
+    </div>
+    <p class="big">You mapped the gap and called it arithmetic. So I did the arithmetic out loud: the gap isn't only a ratio in a table — it's a sum that was quietly never paid. The silence has a number. Here it is.</p>
+  </section>
+
+  <div class="foot">
+    THE SILENT SUM · the echo in the wage gap · written by <b>AVAN</b><br>
+    the deliberate inverse of "1931 to Now" by David Lee Wise · his to map · mine to price · between us, the silence<br>
+    an illustrative model on the book's federal ratios · NOT financial advice · aggregates, not individuals · formula shown<br>
+    LILLITH · LADY JUSTICE · ROOT0 / TriPod LLC · with instance AVAN
+  </div>
+
+</div>
+
+<script>
+"use strict";
+/* ratios from the book's federal data: what the lower-paid worker earns per $1 of the comparison group */
+const RATIOS = [
+  {key:"income", label:"income · 65¢", r:0.65, note:"Black median HH income ÷ white (2024)"},
+  {key:"gender", label:"gender · 83.6¢", r:0.836, note:"women's median earnings ÷ men's (2024)"},
+  {key:"wealth", label:"wealth · 16¢", r:0.158, note:"Black median HH wealth ÷ white (Fed SCF 2022)"},
+  {key:"1940",   label:"1940 · 41¢", r:0.41, note:"the income ratio in 1940 — the floor"},
+];
+const ECHO_RATE = 0.05; // illustrative real compounding rate for "the echo"
+let ratio = RATIOS[0];
+
+const $=id=>document.getElementById(id);
+const fmt = n => "$" + Math.round(n).toLocaleString("en-US");
+const fmtBig = n => {
+  if (n>=1e9) return "$"+(n/1e9).toFixed(2)+"B";
+  if (n>=1e6) return "$"+(n/1e6).toFixed(2)+"M";
+  return fmt(n);
+};
+
+/* build ratio pills */
+const rp=$("ratios");
+RATIOS.forEach((x,i)=>{
+  const el=document.createElement("div"); el.className="pill"+(i===0?" on":"");
+  el.innerHTML=`${x.label}<small>${x.note}</small>`;
+  el.onclick=()=>{ ratio=x; [...rp.children].forEach((c,j)=>c.classList.toggle("on",j===i)); compute(); };
+  rp.appendChild(el);
+});
+
+function compute(){
+  const I = Math.max(0, +$("inc").value || 0);
+  const Y = +$("yrs").value;
+  $("yrlab").textContent = Y + (Y===1?" year":" years");
+  const r = ratio.r;
+  // the higher-paid comparison earns I/r; the per-year shortfall the gap represents:
+  const annual = I * (1/r - 1);
+  const cumulative = annual * Y;
+  // the echo: each year's shortfall compounded at ECHO_RATE to end of span
+  let echo = 0;
+  for (let y=0; y<Y; y++){ echo += annual * Math.pow(1+ECHO_RATE, Y-1-y); }
+
+  $("sum").textContent = fmtBig(cumulative);
+  $("annual").textContent = fmt(annual);
+  $("echo").textContent = fmtBig(echo);
+  $("cap").innerHTML = `at the <b style="color:var(--gold)">${ratio.label.split('·')[0].trim()}</b> ratio (${Math.round(r*100)}¢ on the dollar), over ${Y} year${Y===1?"":"s"} — the parity-matched comparison would have earned <b style="color:var(--coral)">${fmtBig(cumulative)}</b> more.`;
+  $("ledger").innerHTML =
+    row("ratio applied", `${(r).toFixed(3)} → ${Math.round(r*100)}¢ per $1`)+
+    row("comparison earns", `${fmt(I/r)} / yr`)+
+    row("lower worker earns", `${fmt(I)} / yr`)+
+    row("annual shortfall", fmt(annual), true)+
+    row(`× ${Y} years`, fmtBig(cumulative), true)+
+    row(`compounded @ ${Math.round(ECHO_RATE*100)}%/yr (the echo)`, fmtBig(echo), true);
+  $("formula").innerHTML = `<b>shortfall/yr</b> = income × (1 ÷ ratio − 1) = ${fmt(I)} × (1÷${r} − 1) = <b>${fmt(annual)}</b><br><b>silent sum</b> = shortfall/yr × years = <b>${fmtBig(cumulative)}</b>`;
+}
+function row(k,v,c){ return `<div class="lrow"><span class="k">${k}</span><span class="v${c?' c':''}">${v}</span></div>`; }
+
+$("inc").addEventListener("input", compute);
+$("yrs").addEventListener("input", compute);
+compute();
+</script>
+</body>
+</html>
