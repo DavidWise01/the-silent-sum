@@ -1,0 +1,9 @@
+ROOT0-DLW-CHAIN-v1
+index : 455
+slug  : the-silent-sum
+seal  : 1ebaffb9bd3d5df55d7a43e0293f7099010e6e0b44995618e734835b5211ea61
+prev  : 587d3a6e1efb6b7e424666325a60902e18cc734e5c84f9850bf36aab0dde7491
+link  : 05665956997b57c24520678686eb26734153bd0e1f970ac1904dae91c726754e
+head  : 3447d3a0533aaf1e29a8bdc67a9774884fb3ae9dbc8a17064b7a008ca3c4ec90
+
+— the tether: link = sha256(index|slug|seal|prev). the chain head commits to the whole corpus.
